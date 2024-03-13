@@ -5,7 +5,9 @@ This Case Study follows the 6 steps Data Analysis Process;
 4.	Analyze
 5.	Share 
 6.	Act
+
 Introduction
+
 Bellabeat is a high-tech company that manufactures health-focused smart products for women. The data was collected on its key areas including activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits. Since it was founded in 2013, Bellabeat has grown rapidly and quickly positioned itself as a tech-driven wellness company for women. Although Bellabeat is a small company but nevertheless they are successful and have the potential to become a larger player in the global smart device market. Urška Sršen, a cofounder and chief Creative Officer of Bellabeat, believes that analyzing smart device fitness data could help unlock new growth opportunities for the company.
 Scenario
 Since 2013, Bellabeat was founded and as such, the company has grown rapidly and quickly, and by that placed itself as a high-tech company providing high-driven decisions for women’s health. The company has 5 products which the case study will focus on one product from below company products;
