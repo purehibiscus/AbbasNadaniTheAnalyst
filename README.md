@@ -69,3 +69,18 @@ Observations made from the above summary:
 
 Share
 
+https://1drv.ms/x/c/36ec20b0f1be2167/Ecu7ROml_X9IufQjyL5x6ukBwfWrbw0Irs6UnAnWqXBIQg?e=M5Cua5
+
+Act Phase
+
+Conclusion and Recommendations
+
+After analyzing the FitBit Fitness tracker data, I came up with the following recommendations for Bellabeat Time watch marketing strategy based on trends in smart device usage.
+1.	Instead of having multiple products, I first recommend marginalizing all the products into two products i.e. Time Watch and Bellabeat app. For the production of this new Watch, A data model was developed on assumption of the proposed Time Watch price, potential revenue, potential profit, and man-working hours to ascertain the result.
+2.	The Bellabeat’s app should be evaluated, upgraded to match the smart watch capabilities in regards to the trends discovered in smart device usage.
+3.	The app should also be tested and monitored for a specified period of time to make sure it satisfies the customer and end users. This can be met through Customer survey responses, interviews and ratings of the new product.
+4.	The result from these surveys can be used to secure the company’s image while ensuring customer satisfaction is met.
+5.	The company should take advantage of the most viable means of communication to advertise their product.
+6.	Also, in the production of the merged Time watch, the company should introduce new fand potential features which will improve customer health, also they may introduce a gift for as a store coin or coupon, which can be used to purchase other products.
+7.	By introducing this coin, it should attract more users, this should be advantageous to the customer in terms of both gaining coins for reaching a specific milestone and at the same time improving their health. And for the company, this will generate more revenue and place them among major competitors.
+8.	Finally, the company should implement a policy on periodical surveys to maintain customer relation and satisfaction.
