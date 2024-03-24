@@ -1,0 +1,175 @@
+# NZ-stolen-vehicles
+
+This case study follows the 6 steps Data Analysis Process
+Ask
+Prepare
+Process
+Analyze
+Share
+Act
+
+Introduction
+M & C is a tracking company which tracks vehicles from location A to B. M & C is one of the competitive, large company with good reputation in terms of the goods and services they render to their customers. Last year, the company received an award from the government of New Zealand as the best in assisting the government for preserving harmony and preventing auto theft and tracking stolen vehicles. The company is now opportune for its reputation to use the Police Department database to collect and analyze the 6-month auto theft reports data set in the 13 regions of the Country. The Police Department Chief believes that analyzing the reports data set will help the Police Department in tracking the stolen vehicles, the vehicle type, model year, color, make name and type to prevent further occurrences of these reports. 
+
+Scenario
+Since it was found in 2010, M & C has grown rapidly as a small company and thereby finding itself in a competitive position in the global market, as a small company with few customers, the Managing Director and key stakeholders believed that solving trending problems for the country will elevate the company’s position to a big one. The primary service of the company is monitoring the movements of vehicles around the key areas while analyzing the product’s activeness in line with the user’s consent. The company has been approached by the Police Department to help analyze the 6-month report data set to distinguish key areas with high rate of such occurrences, determine the vehicle features with highest and lowest number of reports. Our team has been asked to analyze the data to gain insights from the data set as to the likely cause of the stolen vehicle in question. The insights we discover will help tracks, guide and prevent further happenings of the subject-matter and lastly, the company will benefit from the analysis through comparing and understanding of the security features installed by the stolen vehicles make company with their products and services they offer.
+ 
+Ask Phase
+Key Task
+To identify weak locations with high risk and eliminate further occurrences of vehicle theft through guides and recommendations to secure the citizen properties.
+Key Stakeholders:
+•	Chief Officer of Police Department
+•	The Managing Director: M & C tracking company
+•	Data Analytics Team, M & C tracking company
+Questions to guide the analysis:
+1.	What is the sum of theft reports collected in the 6-month data set across all the 13 regions.
+2.	Which location has the highest number of reports.
+3.	How many thefts reports with an average of 15 or greater in density across all regions.
+4.	Which are the top 10 most stolen vehicle in the last 6-months in all the 13 regions.
+5.	 Which day in a month has the highest number of reports, and which month has the highest number of reports.
+6.	Which location has the highest population and top five (5) most stolen vehicle in that region.
+7.	Which is the most common color with high reports.
+8.	Which is the day in all regions with highest theft reports.
+
+Prepare Phase
+Due to the tables are separated in sheets, there is need to merge the tables to have a well-structured and complete data set ready for cleaning and analysis. I used the SQL JOIN clauses to easily merge the data sets. The main analytics tools used were SQL and Tableau.
+SELECT 
+vt.vehicle_id, vt.date_stolen, vt.location_id, vt.model_year, vt.vehicle_type, vt.vehicle_desc, vt.color, loc.region, loc.country, loc.population, loc.density, mk.make_id, mk.make_name, mk.make_type
+FROM `stolenvehicles.motor_vehicles_theft.vehiclesTheft` AS vt
+LEFT JOIN `stolenvehicles.motor_vehicles_theft.locations` AS loc
+ON vt.location_id = loc.location_id
+RIGHT JOIN `stolenvehicles.motor_vehicles_theft.make-details` AS mk
+ON vt.make_id = mk.make_id
+ORDER BY vehicle_id
+
+Process Phase
+
+I used the above syntax to join the three tables using the data set dictionary.
+I used the data correction tool in excel to navigate and correct relevant data, I further proceed to check for mis-spelt words, check for duplicates and inconsistencies using conditional formatting. I finally used the Go to special tool to check for errors.
+The data being used in this case study can be found at: 
+The is stored and uploaded to SQL. This Kaggle data set contains 4520 theft reports. It includes information about subject-matter region, date stolen, vehicle type, make name, make type, color, model year, location IDs, country, population and density. The data set contains 4 inclusive of the dataset dictionary CSV files organized in wide format.
+Whether the data follows the ROCCC Analysis as mentioned below:
+•	Reliability – MEDIUM: This dataset was sourced from Kaggle website.
+•	Original – HIGH: First party data collected by the NZ Police department.
+•	Comprehensive – MEDIUM: The dataset contains multiple field reports on vehicles theft reports.
+•	Current – MEDIUM: This data is from 10 October 2021 to 6 April 2022, making it 6-month dataset. The data is semi-current, meaning the insights may be dependable.
+•	Cited – HIGH: Data was collected by the NZ Police Department, therefore absolute.
+
+We should load the dataset to SQL:
+## checking for DISTINCT number of theft reports
+SELECT DISTINCT *
+FROM `stolenvehicles.auto_theft.table1`
+
+## checking for regions reports
+SELECT COUNT(date_stolen) AS no_of_reports, region
+FROM `stolenvehicles.auto_theft.table1`
+GROUP BY region
+ORDER BY region
+
+## checking for region and density with greater than or equal to 15
+SELECT 
+density AS density,
+region AS region
+FROM `stolenvehicles.auto_theft.table1`
+WHERE density >= 15
+
+## checking for vehicle_type with the highest theft record
+SELECT 
+COUNT(vehicle_type) AS no_of_vehicles, vehicle_type
+FROM `stolenvehicles.auto_theft.table1`
+GROUP BY vehicle_type
+ORDER BY no_of_vehicles DESC
+
+## checking for a date with the highest theft record
+SELECT 
+COUNT(date_stolen)
+FROM `stolenvehicles.auto_theft.table1`
+WHERE date_stolen = "2022-04-04"
+
+
+I used the above syntax to check for each date until I found the date with the greatest number of theft reports.
+## Checking for month with highest reports
+SELECT date_stolen, vehicle_type, make_name, region, location_ID
+FROM `stolenvehicles.auto_theft.table1`
+WHERE date_stolen BETWEEN "2022-03-01" AND "2022-03-31"
+
+
+## Checking for region with the highest population
+SELECT DISTINCT region, population, location_ID
+FROM `stolenvehicles.auto_theft.table1`
+ORDER BY population DESC
+
+
+## checking for region with the highest population
+SELECT COUNT(date_stolen) AS report_date,
+        region AS regions,
+        MAX(population) AS population
+FROM `stolenvehicles.auto_theft.table1`
+GROUP BY region
+ORDER BY population DESC
+
+
+## Top 5 most stolen vehicles in Auckland
+SELECT *
+FROM `stolenvehicles.auto_theft.table1`
+WHERE region = "Auckland" AND 
+    vehicle_type = "Hatchback" AND 
+    vehicle_type = "Road Bike" AND 
+    vehicle_type = "Saloon" AND 
+    vehicle_type = "Station wagon" AND 
+    vehicle_type = "Trailer"
+
+## checking for most common vehicle color
+SELECT COUNT(color) AS most_occuring_color, color
+FROM `stolenvehicles.auto_theft.table1`
+GROUP BY color
+ORDER BY most_occuring_color DESC
+
+## checking for a date with the highest theft record
+SELECT 
+date_stolen AS max_of_records,
+vehicle_type,
+region,
+model_year,
+make_name,
+make_type
+FROM `stolenvehicles.auto_theft.table1`
+WHERE date_stolen = "2022-04-04"
+
+
+## checking for make_name with the highest theft record
+SELECT 
+COUNT(make_name) AS vehicle_make, make_name
+FROM `stolenvehicles.auto_theft.table1`
+GROUP BY make_name
+ORDER BY vehicle_make DESC
+
+
+Analyze Phase
+Observations made from the above summaries:
+1.	There are 4519 distinct theft reports collected by the NZ Police.
+2.	Auckland with the location_id 102 has the highest number of theft reports with a total overall of 1630 reports.
+3.	The most stolen vehicles have an average density between 129– 343 and the total of such vehicles is 1722.
+4.	The most stolen vehicle type is Station-wagon with total of 946 occurrences across all regions.
+5.	The month with highest reports is March 2022 with a total of 783 theft reports.
+6.	The population of the most occurring region i.e. Auckland is 1,695,200 and most stolen vehicle type in that location is Saloon with 328 reports.
+7.	The most common color with high reports is silver with 1272 reports.
+8.	In the 6-month report and across the 13 regions, 2022-04-04 which is Monday is the day with highest number of reports with 81 thefts.
+9.	Top 5 make_name with highest number of records is.
+•	Toyota – 716
+•	Trailer – 543
+•	Nissan – 482
+•	Mazda – 433
+•	Ford – 312
+
+Share Phase
+https://public.tableau.com/app/profile/nadani.abbas.ahmad/vizzes
+
+Act Phase
+
+Conclusion and recommendation
+
+This analysis suggests Monday as the riskiest day since most vehicles are reported lost on this day. Special attention should be placed on this day, to find out why most theft cases occur on Monday. The Netherlands police department should put in security measures to reduce the rate of car theft especially on Mondays. 
+Security is better enhanced where the public have knowledge about what is happening and how to stay safe. The Netherlands police department should create awareness to the public about car theft. A car theft prevention campaign for instance would equip people on preventive measures to help protect their vehicles. 
+The most stolen vehicle types should also be put into consideration. This analysis suggests that the top-most stolen vehicle types and makes are the most in demand in the market. Car manufacturers and car assembly companies should be advised to include the necessary security features to help reduce car theft.
+Car owners should be advised on adding security gadgets in their vehicles. They should consider sensitive alarms, steering wheel locks, changing lock designs, kill switch especially for the old vehicles among others.
